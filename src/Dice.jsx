@@ -1,4 +1,4 @@
-function Die({ value }) {
+function Dice({ value }) {
   return (
     <div className="die">
       <h2>{value}</h2>
@@ -6,4 +6,4 @@ function Die({ value }) {
   );
 }
 
-export default Die;
+export default Dice;
