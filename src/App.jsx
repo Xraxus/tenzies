@@ -14,7 +14,6 @@ function App() {
       )
     ) {
       setTenzies(true);
-      console.log("You won!");
     }
   }, [diceArray]);
 
@@ -37,12 +36,17 @@ function App() {
   }
 
   function rollDice() {
-    setDiceArray((oldDice) =>
-      oldDice.map((dice) => {
-        if (dice.isHeld) return dice;
-        else return generateNewDie();
-      })
-    );
+    if (!tenzies) {
+      setDiceArray((oldDice) =>
+        oldDice.map((dice) => {
+          if (dice.isHeld) return dice;
+          else return generateNewDie();
+        })
+      );
+    } else {
+      setDiceArray(allNewDice());
+      setTenzies(false);
+    }
   }
 
   function holdDice(id) {
@@ -73,8 +77,9 @@ function App() {
       )}
       <h1 className="title">Tenzies</h1>
       <p className="instructions">
-        Roll until all dice are the same. Click each die to freeze it at its
-        current value between rolls.
+        {tenzies
+          ? "You won!"
+          : "Roll until all dice are the same. Click each die to freeze it at its current value between rolls."}
       </p>
       <div className="dice-container">{diceElements}</div>
       <button className="roll-btn" onClick={rollDice}>
