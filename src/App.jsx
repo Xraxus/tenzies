@@ -5,25 +5,49 @@ import { nanoid } from "nanoid";
 function App() {
   const [diceArray, setDiceArray] = useState(allNewDice());
 
+  function generateNewDie() {
+    return {
+      value: Math.ceil(Math.random() * 6),
+      isHeld: false,
+      id: nanoid(),
+    };
+  }
+
   function allNewDice() {
     const diceArr = [];
 
     for (let i = 0; i < 10; i++) {
-      diceArr.push({
-        id: nanoid(),
-        value: Math.ceil(Math.random() * 6),
-        isHeld: false,
-      });
+      diceArr.push(generateNewDie());
     }
 
     return diceArr;
   }
 
   function rollDice() {
-    setDiceArray(allNewDice());
+    setDiceArray((oldDice) =>
+      oldDice.map((dice) => {
+        if (dice.isHeld) return dice;
+        else return generateNewDie();
+      })
+    );
   }
 
-  const diceElements = diceArray.map((dice) => <Dice key={dice.id} value={dice.value} />);
+  function holdDice(id) {
+    setDiceArray((oldDice) =>
+      oldDice.map((die) => {
+        return die.id === id ? { ...die, isHeld: !die.isHeld } : die;
+      })
+    );
+  }
+
+  const diceElements = diceArray.map((dice) => (
+    <Dice
+      key={dice.id}
+      value={dice.value}
+      isHeld={dice.isHeld}
+      handleClick={() => holdDice(dice.id)}
+    />
+  ));
 
   return (
     <main>
