@@ -16,12 +16,12 @@ function App() {
   }
 
 
-  const dieElements = diceArray.map( die => <div className="die"><h2>{die}</h2></div>)
+  const diceElements = diceArray.map( die => <Die value={die}/>)
 
   return (
     <main>
       <div className="dice-container">
-        {dieElements}
+        {diceElements}
       </div>
     </main>
   );
