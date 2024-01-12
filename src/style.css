@@ -68,3 +68,15 @@ main {
 .dice--is-held {
   background-color: #59e390;
 }
+
+.title {
+  font-size: 40px;
+  margin: 0;
+}
+
+.instructions {
+  font-family: "Inter", sans-serif;
+  font-weight: 400;
+  margin-top: -1em;
+  text-align: center;
+}
